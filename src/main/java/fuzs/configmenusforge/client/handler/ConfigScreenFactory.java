@@ -2,7 +2,7 @@ package fuzs.configmenusforge.client.handler;
 
 import fuzs.configmenusforge.client.gui.screens.SelectConfigScreen;
 import fuzs.configmenusforge.client.gui.util.ScreenUtil;
-import fuzs.puzzleslib.core.ModLoaderEnvironment;
+import fuzs.configmenusforge.lib.core.ModLoaderEnvironment;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.minecraft.client.gui.GuiComponent;

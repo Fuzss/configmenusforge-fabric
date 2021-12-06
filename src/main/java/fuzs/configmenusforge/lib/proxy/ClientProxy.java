@@ -15,7 +15,6 @@ import java.util.function.Function;
  * client proxy class
  */
 public class ClientProxy extends ServerProxy {
-
     @Override
     public Player getClientPlayer() {
         return Minecraft.getInstance().player;

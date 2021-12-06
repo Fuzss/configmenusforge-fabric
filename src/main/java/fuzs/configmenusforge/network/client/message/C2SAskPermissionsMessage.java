@@ -1,8 +1,8 @@
 package fuzs.configmenusforge.network.client.message;
 
+import fuzs.configmenusforge.ConfigMenusForge;
+import fuzs.configmenusforge.lib.network.message.Message;
 import fuzs.configmenusforge.network.message.S2CGrantPermissionsMessage;
-import fuzs.puzzleslib.network.NetworkHandler;
-import fuzs.puzzleslib.network.message.Message;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -26,14 +26,14 @@ public class C2SAskPermissionsMessage implements Message {
         return new AskPermissionsHandler();
     }
 
-    private static class AskPermissionsHandler implements PacketHandler<C2SAskPermissionsMessage> {
+    private static class AskPermissionsHandler extends PacketHandler<C2SAskPermissionsMessage> {
 
         @Override
         public void handle(C2SAskPermissionsMessage packet, Player player, Object gameInstance) {
             // this technically isn't necessary as the client is fully aware of its own permission level on the server
             // it's still here so there can be e.g. a config option for denying clients to edit server configs in the future
             if (player.hasPermissions(((MinecraftServer) gameInstance).getOperatorUserPermissionLevel())) {
-                NetworkHandler.INSTANCE.sendTo(new S2CGrantPermissionsMessage(), (ServerPlayer) player);
+                ConfigMenusForge.NETWORK.sendTo(new S2CGrantPermissionsMessage(), (ServerPlayer) player);
             }
         }
     }

@@ -6,13 +6,12 @@ import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.vertex.PoseStack;
 import fuzs.configmenusforge.ConfigMenusForge;
 import fuzs.configmenusforge.client.gui.components.ConfigSelectionList;
+import fuzs.configmenusforge.client.gui.data.IEntryData;
 import fuzs.configmenusforge.client.gui.util.ScreenUtil;
 import fuzs.configmenusforge.client.gui.widget.AnimatedIconButton;
 import fuzs.configmenusforge.client.util.ServerConfigUploader;
-import fuzs.configmenusforge.client.gui.data.IEntryData;
+import fuzs.configmenusforge.lib.core.ModLoaderEnvironment;
 import fuzs.configmenusforge.network.client.message.C2SAskPermissionsMessage;
-import fuzs.puzzleslib.core.ModLoaderEnvironment;
-import fuzs.puzzleslib.network.NetworkHandler;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
@@ -23,7 +22,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
-import net.minecraftforge.ForgeConfigs;
+import net.minecraftforge.api.ConfigPaths;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.loading.FileUtils;
 
@@ -111,7 +110,7 @@ public class SelectConfigScreen extends Screen {
 			final ConfigSelectionList.ConfigListEntry selected = this.list.getSelected();
 			if (selected != null) {
 				final ModConfig config = selected.getConfig();
-				Path destination = ModLoaderEnvironment.getGameDir().resolve(ForgeConfigs.DEFAULT_CONFIG_NAME).resolve(config.getFileName());
+				Path destination = ModLoaderEnvironment.getGameDir().resolve(ConfigPaths.DEFAULT_CONFIGS_PATH).resolve(config.getFileName());
 				this.minecraft.setScreen(ScreenUtil.makeConfirmationScreen(result -> {
 					if (result) {
 						try {
@@ -213,7 +212,7 @@ public class SelectConfigScreen extends Screen {
 			if (minecraft.isLocalServer()) {
 				this.serverPermissions = true;
 			} else {
-				NetworkHandler.INSTANCE.sendToServer(new C2SAskPermissionsMessage());
+				ConfigMenusForge.NETWORK.sendToServer(new C2SAskPermissionsMessage());
 			}
 		}
 	}

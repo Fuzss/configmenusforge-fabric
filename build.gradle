@@ -34,15 +34,15 @@ dependencies {
 
 	modImplementation "net.fabricmc:fabric-loader:${project.fabricVersion}"
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabricApiVersion}"
-	include "net.fabricmc.fabric-api:fabric-api:${project.fabricApiVersion}", fabricApi.module("fabric-lifecycle-events-v1", project.fabricApiVersion)
-	include "net.fabricmc.fabric-api:fabric-api:${project.fabricApiVersion}", fabricApi.module("fabric-networking-api-v1", project.fabricApiVersion)
-	include "net.fabricmc.fabric-api:fabric-api:${project.fabricApiVersion}", fabricApi.module("fabric-command-api-v1", project.fabricApiVersion)
+//	include "net.fabricmc.fabric-api:fabric-api:${project.fabricApiVersion}", fabricApi.module("fabric-lifecycle-events-v1", project.fabricApiVersion)
+//	include "net.fabricmc.fabric-api:fabric-api:${project.fabricApiVersion}", fabricApi.module("fabric-networking-api-v1", project.fabricApiVersion)
+//	include "net.fabricmc.fabric-api:fabric-api:${project.fabricApiVersion}", fabricApi.module("fabric-command-api-v1", project.fabricApiVersion)
 	modImplementation "net.minecraftforge:ForgeConfigAPIPort:v1.0.0-1.17.1-Fabric"
 	modImplementation "com.terraformersmc:modmenu:2.0.12"
 	implementation 'com.electronwill.night-config:core:3.6.3'
 	implementation 'com.electronwill.night-config:toml:3.6.3'
-	include 'com.electronwill.night-config:core:3.6.3'
-	include 'com.electronwill.night-config:toml:3.6.3'
+//	include 'com.electronwill.night-config:core:3.6.3'
+//	include 'com.electronwill.night-config:toml:3.6.3'
 }
 
 processResources {

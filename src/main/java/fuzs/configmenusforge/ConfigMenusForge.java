@@ -2,7 +2,7 @@ package fuzs.configmenusforge;
 
 import fuzs.configmenusforge.config.TestConfig;
 import fuzs.configmenusforge.lib.core.ModLoaderEnvironment;
-import fuzs.configmenusforge.lib.network.NetworkDirection;
+import fuzs.configmenusforge.lib.network.MessageDirection;
 import fuzs.configmenusforge.lib.network.NetworkHandler;
 import fuzs.configmenusforge.network.client.message.C2SAskPermissionsMessage;
 import fuzs.configmenusforge.network.client.message.C2SSendConfigMessage;
@@ -23,6 +23,8 @@ public class ConfigMenusForge implements ModInitializer {
     public static final String MOD_URL = "https://www.curseforge.com/minecraft/mc-mods/config-menus-forge";
     public static final Logger LOGGER = LogManager.getLogger(ConfigMenusForge.MOD_NAME);
 
+    public static final NetworkHandler NETWORK = NetworkHandler.of(MOD_ID);
+
     @Override
     public void onInitialize() {
         this.registerMessages();
@@ -30,10 +32,10 @@ public class ConfigMenusForge implements ModInitializer {
     }
 
     private void registerMessages() {
-        NetworkHandler.INSTANCE.register(C2SAskPermissionsMessage.class, C2SAskPermissionsMessage::new, NetworkDirection.PLAY_TO_SERVER);
-        NetworkHandler.INSTANCE.register(S2CGrantPermissionsMessage.class, S2CGrantPermissionsMessage::new, NetworkDirection.PLAY_TO_CLIENT);
-        NetworkHandler.INSTANCE.register(C2SSendConfigMessage.class, C2SSendConfigMessage::new, NetworkDirection.PLAY_TO_SERVER);
-        NetworkHandler.INSTANCE.register(S2CUpdateConfigMessage.class, S2CUpdateConfigMessage::new, NetworkDirection.PLAY_TO_CLIENT);
+        NETWORK.register(C2SAskPermissionsMessage.class, C2SAskPermissionsMessage::new, MessageDirection.TO_SERVER);
+        NETWORK.register(S2CGrantPermissionsMessage.class, S2CGrantPermissionsMessage::new, MessageDirection.TO_CLIENT);
+        NETWORK.register(C2SSendConfigMessage.class, C2SSendConfigMessage::new, MessageDirection.TO_SERVER);
+        NETWORK.register(S2CUpdateConfigMessage.class, S2CUpdateConfigMessage::new, MessageDirection.TO_CLIENT);
     }
 
     private void initTestConfigs() {

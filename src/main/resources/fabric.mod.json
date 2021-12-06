@@ -14,7 +14,7 @@
     "sources": "${modSourceUrl}"
   },
 
-  "license": "GNU Lesser General Public License 2.1",
+  "license": "Mozilla Public License 2.0",
   "icon": "mod_logo.png",
 
   "environment": "*",
@@ -23,7 +23,9 @@
       "${mainEntryPoint}"
     ],
     "client": [
-      "${clientEntryPoint}"
+    ],
+    "modmenu": [
+      "fuzs.configmenusforge.client.handler.ConfigFactoryHandler"
     ]
   },
   "mixins": [
@@ -34,5 +36,13 @@
     "fabric": ">=${minFabricApiVersion}",
     "minecraft": ">=${minMinecraftVersion} <${nextMinecraftVersion}",
     "java": ">=16"
+  },
+
+  "custom": {
+    "modmenu": {
+      "badges": [
+        "library"
+      ]
+    }
   }
 }

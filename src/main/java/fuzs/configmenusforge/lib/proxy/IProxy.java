@@ -1,5 +1,6 @@
 package fuzs.configmenusforge.lib.proxy;
 
+import fuzs.configmenusforge.lib.core.EnvTypeExecutor;
 import fuzs.configmenusforge.lib.network.message.Message;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -16,7 +17,7 @@ public interface IProxy {
      * sided proxy depending on physical side
      */
     @SuppressWarnings("Convert2MethodRef")
-    IProxy INSTANCE = EnvTypeExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
+    IProxy INSTANCE = EnvTypeExecutor.runForEnvType(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
 
     /**
      * @return client player from Minecraft singleton when on physical client, otherwise null

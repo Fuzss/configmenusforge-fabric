@@ -1,6 +1,6 @@
 package fuzs.configmenusforge.network.message;
 
-import fuzs.puzzleslib.network.message.Message;
+import fuzs.configmenusforge.lib.network.message.Message;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
@@ -38,7 +38,7 @@ public class S2CUpdateConfigMessage implements Message {
         return new UpdateConfigHandler();
     }
 
-    private static class UpdateConfigHandler implements PacketHandler<S2CUpdateConfigMessage> {
+    private static class UpdateConfigHandler extends PacketHandler<S2CUpdateConfigMessage> {
 
         @Override
         public void handle(S2CUpdateConfigMessage packet, Player player, Object gameInstance) {

@@ -3,16 +3,15 @@ package fuzs.configmenusforge.network.client.message;
 import com.electronwill.nightconfig.core.CommentedConfig;
 import com.electronwill.nightconfig.toml.TomlFormat;
 import fuzs.configmenusforge.ConfigMenusForge;
+import fuzs.configmenusforge.lib.network.message.Message;
 import fuzs.configmenusforge.network.message.S2CUpdateConfigMessage;
-import fuzs.puzzleslib.network.NetworkHandler;
-import fuzs.puzzleslib.network.message.Message;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.api.event.config.ModConfigEvent;
 import net.minecraftforge.fml.config.ConfigTracker;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
 
 import java.io.ByteArrayInputStream;
 
@@ -46,7 +45,7 @@ public class C2SSendConfigMessage implements Message {
         return new SendConfigHandler();
     }
 
-    private static class SendConfigHandler implements PacketHandler<C2SSendConfigMessage> {
+    private static class SendConfigHandler extends PacketHandler<C2SSendConfigMessage> {
 
         @Override
         public void handle(C2SSendConfigMessage packet, Player player, Object gameInstance) {
@@ -59,7 +58,7 @@ public class C2SSendConfigMessage implements Message {
                     final CommentedConfig receivedConfig = TomlFormat.instance().createParser().parse(new ByteArrayInputStream(packet.fileData));
                     config.getConfigData().putAll(receivedConfig);
                     ModConfigEvent.RELOADING.invoker().onModConfigReloading(config);
-                    NetworkHandler.INSTANCE.sendToAllExcept(new S2CUpdateConfigMessage(packet.fileName, packet.fileData), (ServerPlayer) player);
+                    ConfigMenusForge.NETWORK.sendToAllExcept(new S2CUpdateConfigMessage(packet.fileName, packet.fileData), (ServerPlayer) player);
                     ConfigMenusForge.LOGGER.info("Server config has been updated by {}", player.getDisplayName().getString());
                 } else {
                     ConfigMenusForge.LOGGER.error("Failed to update server config with data received from {}", player.getDisplayName().getString());
